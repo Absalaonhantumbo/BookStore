@@ -43,8 +43,7 @@ public class CreateCostumerType
         {
             var costumerType = new CostumerType()
             {
-                Description = request.Description,
-                CreatedByUserId = _userAccessor.GetCurrentUserId()
+                Description = request.Description
             };
             
             _genericRepository.Add(costumerType);

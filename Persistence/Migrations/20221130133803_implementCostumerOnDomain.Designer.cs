@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221127220657_implementCostumerTypeonDomain")]
-    partial class implementCostumerTypeonDomain
+    [Migration("20221130133803_implementCostumerOnDomain")]
+    partial class implementCostumerOnDomain
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,43 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Costumer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CNPJ")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("CostumerTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostumerTypeId");
+
+                    b.ToTable("Costumers");
+                });
 
             modelBuilder.Entity("Domain.CostumerType", b =>
                 {
@@ -35,16 +72,11 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CreatedByUserId")
-                        .HasColumnType("text");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
 
                     b.ToTable("CostumerTypes");
                 });
@@ -262,13 +294,15 @@ namespace Persistence.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
-            modelBuilder.Entity("Domain.CostumerType", b =>
+            modelBuilder.Entity("Domain.Costumer", b =>
                 {
-                    b.HasOne("Domain.User", "CreatedByUser")
+                    b.HasOne("Domain.CostumerType", "CostumerType")
                         .WithMany()
-                        .HasForeignKey("CreatedByUserId");
+                        .HasForeignKey("CostumerTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("CreatedByUser");
+                    b.Navigation("CostumerType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

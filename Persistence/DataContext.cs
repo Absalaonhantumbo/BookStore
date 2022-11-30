@@ -12,5 +12,6 @@ public class DataContext : IdentityDbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<CostumerType> CostumerTypes { get; set; }
+    public DbSet<Costumer> Costumers { get; set; }
     
 }

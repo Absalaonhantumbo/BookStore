@@ -17,6 +17,6 @@ public class CostumerTypeController: BaseApiController
     [HttpPost]
     public async Task<ActionResult<CostumerType>> CreateUsers(CreateCostumerType.CreateCostumerTypeCommand command)
     {
-        return  await _mediator.Send(command);//retorna um objecto com todos os posts
+        return  await _mediator.Send(command);
     }
 }

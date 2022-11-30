@@ -1,4 +1,5 @@
 ﻿using Aplication.Interfaces;
+using Application.Specification;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -42,5 +43,22 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     public async  Task<int> Complete()
     {
         return await _context.SaveChangesAsync() ;
+    }
+    
+    public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
+    {
+        return await ApplySpecification(spec).FirstOrDefaultAsync();
+    }
+
+    public async Task<List<T>> ListWithSpecAsync(ISpecification<T> spec)
+    {
+        var query = ApplySpecification(spec);
+
+        return await query.ToListAsync();
+    }
+    
+    private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+    {
+        return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
     }
 }
