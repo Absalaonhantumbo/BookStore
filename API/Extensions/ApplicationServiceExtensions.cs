@@ -1,4 +1,5 @@
 ﻿using Aplication.Interfaces;
+using Application.Interfaces;
 using Infrastruture.Data;
 using Infrastruture.Services;
 
@@ -11,6 +12,8 @@ public static  class ApplicationServiceExtensions
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserAcessor, UserAcessor>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
         return services;
     }
 }
