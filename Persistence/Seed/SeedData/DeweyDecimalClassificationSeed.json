@@ -1,0 +1,12 @@
+[
+  {"Name": "Obras Gerais", "Code": "000"},
+  {"Name": "Filosofia", "Code": "100"},
+  {"Name": "Religiões", "Code": "200"},
+  {"Name": "Ciências Sociais", "Code": "300"},
+  {"Name": "Filologia e Lingüística", "Code": "400"},
+  {"Name": "Ciências Exatas", "Code": "500"},
+  {"Name": "Ciências Aplicadas", "Code": "600"},
+  {"Name": "Artes", "Code": "700"},
+  {"Name": "Literatura", "Code": "800"},
+  {"Name": "Biografia, História, Geografia", "Code": "900"}
+]
