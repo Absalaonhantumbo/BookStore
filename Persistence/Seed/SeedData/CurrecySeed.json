@@ -1,0 +1,14 @@
+﻿[
+  {
+    "Code": "MZN",
+    "Name": "Metical"
+  },
+  {
+    "Code": "USD",
+    "Name": "Dollar"
+  },
+  {
+    "Code": "ZAR",
+    "Name": "Rand"
+  }
+]

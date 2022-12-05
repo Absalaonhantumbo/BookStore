@@ -16,14 +16,12 @@ public class AuthorController: BaseApiController
     }
     
     [HttpGet]
-    [AllowAnonymous]
     public async Task<ActionResult<List<Author>>> GetAllPublishingCompanies()
     {
         return Ok(await _mediator.Send(new ListAllAuthor.ListAllAuthorQuery()));
     }
     
     [HttpPost]
-    [AllowAnonymous]
     public async Task<ActionResult<Author>> CreatePublishingCompany(CreateListAuthor.CreateAuthorCommand command)
     {
         return  await _mediator.Send(command);

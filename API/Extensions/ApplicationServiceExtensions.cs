@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Infrastruture.Data;
 using Infrastruture.Services;
+using Persistence.Seed;
 
 namespace API.Extensions;
 
@@ -13,6 +14,7 @@ public static  class ApplicationServiceExtensions
         services.AddScoped<IUserAcessor, UserAcessor>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IDbInitializer, DbInitializer>();
         
         return services;
     }

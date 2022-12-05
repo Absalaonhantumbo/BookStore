@@ -18,5 +18,10 @@ public class DataContext : IdentityDbContext
     public DbSet<Book> Books { get; set; }
     public DbSet<CostumerBuyBook> CostumerBuyBooks { get; set; }
     public DbSet<AuthorBook> AuthorBooks { get; set; }
+    public DbSet<knowledgeArea> KnowledgeAreas { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<SupplierType> SupplierTypes { get; set; }
+    public DbSet<CompanyType> CompanyTypes { get; set; }
     
 }
