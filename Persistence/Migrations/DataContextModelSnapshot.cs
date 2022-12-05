@@ -83,9 +83,18 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("DeweyDecimalClassificationId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Edition")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ISBN")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Page")
+                        .HasColumnType("integer");
 
                     b.Property<int>("PublishingCompanyId")
                         .HasColumnType("integer");
@@ -98,9 +107,20 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("DeweyDecimalClassificationId");
+
                     b.HasIndex("PublishingCompanyId");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Books");
                 });
@@ -234,6 +254,30 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("Domain.DeweyDecimalClassification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeweyDecimalClassifications");
                 });
 
             modelBuilder.Entity("Domain.knowledgeArea", b =>
@@ -597,13 +641,29 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Book", b =>
                 {
+                    b.HasOne("Domain.DeweyDecimalClassification", "DeweyDecimalClassification")
+                        .WithMany()
+                        .HasForeignKey("DeweyDecimalClassificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.PublishingCompany", "PublishingCompany")
                         .WithMany()
                         .HasForeignKey("PublishingCompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DeweyDecimalClassification");
+
                     b.Navigation("PublishingCompany");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Domain.Costumer", b =>

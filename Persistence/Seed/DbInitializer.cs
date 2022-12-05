@@ -49,7 +49,7 @@ public class DbInitializer: IDbInitializer
             });
             _context.CompanyTypes.AddRange(companyTypesList);
         }
-        
+
         if (_context.SupplierTypes.ToListAsync().GetAwaiter().GetResult().Count <= 0)
         {
             var supplierTypesSeed = File.ReadAllText("../Persistence/Seed/SeedData/SupplierTypeSeed.json");
@@ -60,6 +60,19 @@ public class DbInitializer: IDbInitializer
                 x.CreatedAt = DateTime.UtcNow;
             });
             _context.SupplierTypes.AddRange(supplierTypesList);
+        } 
+        
+                
+        if (_context.DeweyDecimalClassifications.ToListAsync().GetAwaiter().GetResult().Count <= 0)
+        {
+            var deweyDecimalClassificationsSeed = File.ReadAllText("../Persistence/Seed/SeedData/DeweyDecimalClassificationSeed.json");
+            var deweyDecimalClassificationsList = JsonSerializer.Deserialize<List<DeweyDecimalClassification>>(deweyDecimalClassificationsSeed);
+
+            deweyDecimalClassificationsList.ForEach(x =>
+            {
+                x.CreatedAt = DateTime.UtcNow;
+            });
+            _context.DeweyDecimalClassifications.AddRange(deweyDecimalClassificationsList);
             _context.SaveChanges();
         } 
     }

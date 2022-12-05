@@ -23,5 +23,6 @@ public class DataContext : IdentityDbContext
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<SupplierType> SupplierTypes { get; set; }
     public DbSet<CompanyType> CompanyTypes { get; set; }
+    public DbSet<DeweyDecimalClassification> DeweyDecimalClassifications { get; set; }
     
 }

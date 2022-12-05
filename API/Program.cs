@@ -1,7 +1,7 @@
 using API.Extensions;
 using API.Middlewares;
-using Aplication.Helpers.MappingProfiles;
 using Application.Features.Users;
+using Application.Helpers.MappingProfiles;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +35,9 @@ builder.Services.AddDbContext<DataContext>(optionsAction =>
 // Add Application Extensions
 builder.Services.AddAplicationServices();
 builder.Services.AddSwaggerDocumentation();
+
+//Add Auto Mapper
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 //configuration of mediatr
 builder.Services.AddMediatR(typeof(CreateUser.CreateUserCommand).Assembly);
