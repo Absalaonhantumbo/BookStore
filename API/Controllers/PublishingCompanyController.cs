@@ -16,7 +16,6 @@ public class PublishingCompanyController: BaseApiController
     }
     
     [HttpGet]
-    [AllowAnonymous]
     public async Task<ActionResult<List<PublishingCompany>>> GetAllPublishingCompanies()
     {
         return Ok(await _mediator.Send(new ListAllPublishingCompany.ListAllPublishingCompanyQuery()));
