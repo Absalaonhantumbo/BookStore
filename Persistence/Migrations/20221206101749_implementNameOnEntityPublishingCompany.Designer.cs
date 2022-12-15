@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221205144641_implementDeweyDecimalClassificationsOnDomain")]
-    partial class implementDeweyDecimalClassificationsOnDomain
+    [Migration("20221206101749_implementNameOnEntityPublishingCompany")]
+    partial class implementNameOnEntityPublishingCompany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,6 +82,9 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Balance")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -101,9 +104,8 @@ namespace Persistence.Migrations
                     b.Property<int>("PublishingCompanyId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("QuantityStock")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("QuantityStock")
+                        .HasColumnType("integer");
 
                     b.Property<string>("SubjectMatter")
                         .IsRequired()
@@ -322,6 +324,10 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Gerente")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 

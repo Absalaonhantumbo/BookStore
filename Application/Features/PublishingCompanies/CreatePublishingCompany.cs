@@ -12,6 +12,7 @@ public class CreatePublishingCompany
     public class CreatePublishingCompanyCommand: IRequest<PublishingCompany>
     {
         public string Code { get; set; }
+        public string Name { get; set; }
         public string Gerente { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
@@ -41,6 +42,7 @@ public class CreatePublishingCompany
             var publishingCompany = new PublishingCompany()
             {
                 Code = request.Code,
+                Name = request.Name,
                 Gerente = request.Gerente,
                 Address = request.Address,
                 PhoneNumber = request.PhoneNumber

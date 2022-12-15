@@ -4,7 +4,7 @@
 
 namespace Persistence.Migrations
 {
-    public partial class implementNewEntityOnDomainn : Migration
+    public partial class implementBalanceOnEntityBook : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

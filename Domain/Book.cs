@@ -7,7 +7,8 @@ public class Book: BaseEntity
     public string ISBN { get; set; }
     public string Title { get; set; }
     public string SubjectMatter { get; set; }
-    public string QuantityStock { get; set; }
+    public int QuantityStock { get; set; }
+    public int Balance { get; set; }
     public int Edition { get; set; }
     public int Page { get; set; }
     public int PublishingCompanyId { get; set; }

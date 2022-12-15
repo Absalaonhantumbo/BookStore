@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221204093754_implementNewEntityDomainn")]
-    partial class implementNewEntityDomainn
+    [Migration("20221205150913_implementnewEntity")]
+    partial class implementnewEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,29 +82,71 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Balance")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DeweyDecimalClassificationId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Edition")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Page")
+                        .HasColumnType("integer");
+
                     b.Property<int>("PublishingCompanyId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("QuantityStock")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("QuantityStock")
+                        .HasColumnType("integer");
 
                     b.Property<string>("SubjectMatter")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DeweyDecimalClassificationId");
 
                     b.HasIndex("PublishingCompanyId");
 
+                    b.HasIndex("SupplierId");
+
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Domain.CompanyType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompanyTypes");
                 });
 
             modelBuilder.Entity("Domain.Costumer", b =>
@@ -194,6 +236,74 @@ namespace Persistence.Migrations
                     b.ToTable("CostumerTypes");
                 });
 
+            modelBuilder.Entity("Domain.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("Domain.DeweyDecimalClassification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeweyDecimalClassifications");
+                });
+
+            modelBuilder.Entity("Domain.knowledgeArea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KnowledgeAreas");
+                });
+
             modelBuilder.Entity("Domain.PublishingCompany", b =>
                 {
                     b.Property<int>("Id")
@@ -224,6 +334,81 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PublishingCompanies");
+                });
+
+            modelBuilder.Entity("Domain.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("CompanyTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LegalName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("SupplierTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Telephone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TradeName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyTypeId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("SupplierTypeId");
+
+                    b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("Domain.SupplierType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SupplierTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -460,13 +645,29 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Book", b =>
                 {
+                    b.HasOne("Domain.DeweyDecimalClassification", "DeweyDecimalClassification")
+                        .WithMany()
+                        .HasForeignKey("DeweyDecimalClassificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.PublishingCompany", "PublishingCompany")
                         .WithMany()
                         .HasForeignKey("PublishingCompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DeweyDecimalClassification");
+
                     b.Navigation("PublishingCompany");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Domain.Costumer", b =>
@@ -497,6 +698,33 @@ namespace Persistence.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Costumer");
+                });
+
+            modelBuilder.Entity("Domain.Supplier", b =>
+                {
+                    b.HasOne("Domain.CompanyType", "CompanyType")
+                        .WithMany()
+                        .HasForeignKey("CompanyTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.SupplierType", "SupplierType")
+                        .WithMany()
+                        .HasForeignKey("SupplierTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CompanyType");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("SupplierType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
