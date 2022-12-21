@@ -20,6 +20,7 @@ public class CreateBookAuthors
         public int QuantityStock { get; set; }
         public int Edition { get; set; }
         public int Page { get; set; }
+        public string ImageBook { get; set; }
         public int PublishingCompanyId { get; set; }
         public int DeweyDecimalClassificationId { get; set; }
         public int SupplierId { get; set; }
@@ -110,6 +111,7 @@ public class CreateBookAuthors
                     QuantityStock = request.QuantityStock,
                     Edition = request.Edition,
                     Page = request.Page,
+                    ImageBook = request.ImageBook,
                     Balance = request.QuantityStock,
                     PublishingCompanyId = request.PublishingCompanyId,
                     DeweyDecimalClassificationId = request.DeweyDecimalClassificationId,

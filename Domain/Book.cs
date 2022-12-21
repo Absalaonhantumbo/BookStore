@@ -11,6 +11,7 @@ public class Book: BaseEntity
     public int Balance { get; set; }
     public int Edition { get; set; }
     public int Page { get; set; }
+    public string ImageBook { get; set; }
     public int PublishingCompanyId { get; set; }
     [ForeignKey("PublishingCompanyId")] public PublishingCompany PublishingCompany { get; set; }
     
