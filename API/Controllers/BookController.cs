@@ -26,12 +26,12 @@ public class BookController: BaseApiController
         _hostEnvironment = hostEnvironment;
     }
     
-    // [HttpGet("{bookId}/Book")]
-    // public async Task<List<BookAuthorDto>> GetSelectedContractPayments(int bookId)
-    // {
-    //     return await _mediator.Send(new ListAllBook.ListAllBookQuery() {BookId = bookId});
-    // }
-    //
+    [HttpGet("{bookId}")]
+    public async Task<BookAuthorDto> GetBookByBookId(int bookId)
+    {
+        return await _mediator.Send(new GetBookAuthorByBookId.GetBookAuthorByBookIdQuery() {BookId = bookId});
+    }
+    
     [HttpPost]
     public async Task<ActionResult<BookAuthorDto>> CreateBookAuthors(CreateBookAuthors.CreateBookAuthorsCommand command)
     {
