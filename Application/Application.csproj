@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Features\CustomerBuysBooks" />
       <Folder Include="Features\Suppliers\Specifications" />
     </ItemGroup>
 
