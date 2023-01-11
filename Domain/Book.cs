@@ -9,6 +9,7 @@ public class Book: BaseEntity
     public string SubjectMatter { get; set; }
     public int QuantityStock { get; set; }
     public int Balance { get; set; }
+    public double Value { get; set; }
     public int Edition { get; set; }
     public int Page { get; set; }
     public string ImageBook { get; set; }

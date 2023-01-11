@@ -10,6 +10,7 @@ public class CostumerBuyBook: BaseEntity
     [ForeignKey("CostumerId")] public Costumer Costumer { get; set; }
     public DateTime PurchaseDate { get; set; }
     public int QuantityBookBought { get; set; }
+    public double SaleValue { get; set; }
 
 
 }
