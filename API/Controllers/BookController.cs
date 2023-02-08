@@ -32,6 +32,12 @@ public class BookController: BaseApiController
         return await _mediator.Send(new GetBookAuthorByBookId.GetBookAuthorByBookIdQuery() {BookId = bookId});
     }
     
+    [HttpGet("{authorId}/author")]
+    public async Task<List<BookAuthorDto>> GetBookByAuthorId(int authorId)
+    {
+        return await _mediator.Send(new GetBookByAuthorId.GetBookByAuthorIdQuery() {AuthorId = authorId});
+    }
+    
     [HttpPost]
     public async Task<ActionResult<BookAuthorDto>> CreateBookAuthors(CreateBookAuthors.CreateBookAuthorsCommand command)
     {

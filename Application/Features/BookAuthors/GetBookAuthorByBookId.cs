@@ -37,6 +37,7 @@ public class GetBookAuthorByBookId
             
             var data = new BookAuthorDto()
             {
+                Id = book.Id,
                 Title = book.Title,
                 SubjectMatter = book.SubjectMatter,
                 ISBN = book.ISBN,
