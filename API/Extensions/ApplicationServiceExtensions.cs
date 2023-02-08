@@ -15,6 +15,7 @@ public static  class ApplicationServiceExtensions
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IDbInitializer, DbInitializer>();
+        services.AddScoped<IListOfAuthorsService, ListOfAuthorsService>();
         
         return services;
     }

@@ -18,10 +18,12 @@ public class GetBookAuthorByBookId
     public class GetBookAuthorByBookIdQueryHandler: IRequestHandler<GetBookAuthorByBookIdQuery, BookAuthorDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IListOfAuthorsService _listOfAuthorsService;
 
-        public GetBookAuthorByBookIdQueryHandler(IUnitOfWork unitOfWork)
+        public GetBookAuthorByBookIdQueryHandler(IUnitOfWork unitOfWork, IListOfAuthorsService listOfAuthorsService)
         {
             _unitOfWork = unitOfWork;
+            _listOfAuthorsService = listOfAuthorsService;
         }
         
         public async Task<BookAuthorDto> Handle(GetBookAuthorByBookIdQuery request, CancellationToken cancellationToken)
@@ -46,28 +48,16 @@ public class GetBookAuthorByBookId
                 PublishingCompanyId = book.PublishingCompanyId,
                 DeweyDecimalClassification = book.DeweyDecimalClassification.Name,
                 DeweyDecimalClassificationId = book.DeweyDecimalClassificationId,
-                Authors = GetAuthors(book.Id),
+                Authors = _listOfAuthorsService.GetAuthors(book.Id),
                 SupplierId = book.SupplierId,
                 QuantityStock = book.QuantityStock,
                 Page = book.Page,
-                Supplier = book.Supplier.LegalName
+                Supplier = book.Supplier.LegalName,
+                ImageBook = book.ImageBook
             };
 
             return data;
         }
         
-        private List<AuthorBooks> GetAuthors(int bookId)
-        {
-            var authorSpecification = new ListBookAuthorByBookIdSpecification(bookId);
-            var authors =  _unitOfWork.Repository<AuthorBook>()
-                .ListWithSpecAsync(authorSpecification).GetAwaiter().GetResult();
-
-            var authorList = authors.Select(author => new AuthorBooks()
-            {
-                Id = author.AuthorId,
-            }).ToList();
-
-            return authorList;
-        }
     }
 }

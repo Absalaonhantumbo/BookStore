@@ -18,10 +18,12 @@ public class GetBookByAuthorId
     public class GetBookByAuthorIdQueryHandler: IRequestHandler<GetBookByAuthorIdQuery, List<BookAuthorDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IListOfAuthorsService _listOfAuthorsService;
 
-        public GetBookByAuthorIdQueryHandler(IUnitOfWork unitOfWork)
+        public GetBookByAuthorIdQueryHandler(IUnitOfWork unitOfWork, IListOfAuthorsService listOfAuthorsService)
         {
             _unitOfWork = unitOfWork;
+            _listOfAuthorsService = listOfAuthorsService;
         }
        
         public async Task<List<BookAuthorDto>> Handle(GetBookByAuthorIdQuery request, CancellationToken cancellationToken)
@@ -48,29 +50,17 @@ public class GetBookByAuthorId
                     PublishingCompanyId = x.Book.PublishingCompanyId,
                     DeweyDecimalClassification = x.Book.DeweyDecimalClassification.Name,
                     DeweyDecimalClassificationId = x.Book.DeweyDecimalClassificationId,
-                    Authors = GetAuthors(x.Book.Id),
+                    Authors = _listOfAuthorsService.GetAuthors(x.Book.Id),
                     SupplierId = x.Book.SupplierId,
                     QuantityStock = x.Book.QuantityStock,
                     Page = x.Book.Page,
-                    Supplier = x.Book.Supplier.LegalName
+                    Supplier = x.Book.Supplier.LegalName,
+                    ImageBook = x.Book.ImageBook
                     
                 }).ToList();
 
             return data;
         }
         
-        private List<AuthorBooks> GetAuthors(int bookId)
-        {
-            var authorSpecification = new ListBookAuthorByBookIdSpecification(bookId);
-            var authors =  _unitOfWork.Repository<AuthorBook>()
-                .ListWithSpecAsync(authorSpecification).GetAwaiter().GetResult();
-
-            var authorList = authors.Select(author => new AuthorBooks()
-            {
-                Id = author.AuthorId,
-            }).ToList();
-
-            return authorList;
-        }
     }
 }

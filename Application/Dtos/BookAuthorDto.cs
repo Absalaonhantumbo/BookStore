@@ -16,6 +16,7 @@ public class BookAuthorDto
     public string DeweyDecimalClassification { get; set; }
     public int SupplierId { get; set; }
     public string Supplier { get; set; }
+    public string ImageBook { get; set; }
     
     public List<AuthorBooks> Authors { get; set; } = new List<AuthorBooks>();
 }
